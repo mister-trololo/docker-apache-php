@@ -88,4 +88,4 @@ docker run --name php_web_server -d \
 test/php_server:v1
 ```
 
-По итогу когда обращаешься к пхп, то на выходе получаешь **File not found. **
+По итогу когда обращаешься к пхп, то на выходе получаешь **File not found.**
