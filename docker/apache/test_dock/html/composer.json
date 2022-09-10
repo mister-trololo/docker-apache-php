@@ -1,0 +1,13 @@
+{
+    "name": "8ctopus/apache-php-fpm-alpine",
+    "authors": [
+        {
+            "name": "8ctopus",
+            "email": "hello@octopuslabs.io"
+        }
+    ],
+    "require": {
+        "filp/whoops": "^2.14",
+        "dompdf/dompdf": "^1.2"
+    }
+}
