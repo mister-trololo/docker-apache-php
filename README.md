@@ -85,6 +85,7 @@ docker run --name php_web_server -d \
 -p 9001:9001 \
 -v /home/<user>/site/php_config:/etc/php7/ \
 -v /home/<user>/site/log/php:/var/log/php7/ \
+-v /home/<user>/site/www:/var/www/ \
 test/php_server:v1
 ```
 
