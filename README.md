@@ -1,6 +1,10 @@
 # docker-apache-php
 
-Как то ничего не выходит
+Постройка сайта на основе (пока что) apache, php, mariaDB. Со временем понимания процессов думаю буду дополнять данный документ.
+
+apache, php, mariaDB - Всё находится в отдельных контейнерах. Образы собираются по факту с нуля, готовые не берутся.
+
+Скажу сразу, в деле докера я новичёк, так что это просто шпаргалки для себя, но может кому тоже пригодится.
 
 ### Структура
 
@@ -16,35 +20,18 @@
     |   └── php (логи php)
     ├── php_config (конфиги php)
     └── www (какталог с сайтами)
-        └── zigmund.sru
+        └── info.test
 ```
+Часть конфигов и докер файлы подёргал [Отсюда](https://github.com/8ctopus/apache-php-fpm-alpine).
 
-Сначала сделам всё в одной куче, то есть пхп и апач в одном контейнере
-
-```bash
-cd /home/<user>/docker/apache/test_dock
-#собираем образ
-docker build -t test/temp_web_server:v1 .
-#Собираем контейнер
-docker run --name temp_web_server --rm -d \
--p 80:80 \
--p 443:443 \
-test/temp_web_server:v1
-    
-```
-Заходим по [адресу](http://localhost/phpinfo.php)
-
-Взято [Отсюда](https://github.com/8ctopus/apache-php-fpm-alpine) И получаем сразу результат.
+По MariaDB взял [Отсюда](https://github.com/yobasystems/alpine-mariadb.git)
 
 ```bash
 #Создадим свою сеть
 docker network create web1
-#Тормозим контейнер
-docker stop temp_web_server
-#Заодно он удалился
 #Теперь собираем отдельно апач и пхп
 #Апач
-cd ../
+cd /home/<user>/docker/apache/
 #Собираем образ
 docker build -t test/apache_server:v1 .
 #Далее собираем контейнер. Сначало просто выдернем конфиги и скопируем их в нужное нам место
@@ -55,7 +42,7 @@ docker cp apache_web_server:/etc/apache2/. /home/<user>/site/apache_config
 cp /home/<user>/docker/apache/test.conf /home/<user>/site/apache_config/conf.d/test.conf
 #Тормозим контейнер
 docker stop apache_web_server
-#Запускаем уже нормальный апачугу
+#Запускаем уже нормальный апач
 docker run --name apache_web_server -d \
 --net web1 \
 -p 80:80 \
@@ -65,7 +52,7 @@ docker run --name apache_web_server -d \
 -v /home/<user>/site/www:/var/www/htdocs \
 test/apache_server:v1
 ```
-Заходим на localhost или на адрес сайта, html норм работает. Для php пока что рано.
+Заходим на localhost или на адрес [сайта](http://info.test), html норм работает. Для php пока что рано.
 Настроим пехепе
 
 ```bash
@@ -89,4 +76,4 @@ docker run --name php_web_server -d \
 test/php_server:v1
 ```
 
-По итогу когда обращаешься к пхп, то на выходе получаешь **File not found.**
+
