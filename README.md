@@ -19,8 +19,10 @@ apache, php, mariaDB - Всё находится в отдельных конт�
     |   ├── apache (логи апача)
     |   └── php (логи php)
     ├── php_config (конфиги php)
-    └── www (какталог с сайтами)
-        └── info.test
+    ├── www (какталог с сайтами)
+    |    └── info.test
+    ├── db_files
+    |   └── maria_db (Файлы БД)
 ```
 Часть конфигов и докер файлы подёргал [Отсюда](https://github.com/8ctopus/apache-php-fpm-alpine).
 
@@ -78,3 +80,33 @@ test/php_server:v1
 
 Смотрим [http://info.test/phpinfo.php](http://info.test/phpinfo.php)
 
+
+Теперь добавим базу данных. В данном случае это MariaDB
+
+```bash
+cd ../db
+#собираем образ
+docker build -t test/mariadb:v1 .
+//Создаём контейнер из образа, если надо создать юзера и БД, то пишем параметры
+docker run --name db_server -d \
+-e MYSQL_ROOT_PASSWORD=root_pass \
+-e MYSQL_DATABASE=db_name \
+-e MYSQL_USER=user_name \
+-e MYSQL_PASSWORD=user_pass \
+-v /home/<user>/site/db_files/maria_db:/var/lib/mysql \
+test/mariadb:v1
+#Если нужно в БД положить дамп, то закидываем его прям в контейнер
+docker cp /home/<user>/<name_dump> <containerId>:/home/<name_dump>
+#Заходим в консоль контейнера
+docker exec -it db_server /bin/sh
+#подключаеммся к БД
+mysql -u root -p
+#подключаемся к БД в котороую будем заливать дамп
+use <db_name>;
+#заливаем
+source /home/<dump_name>;
+#выходим
+quit;
+exit;
+#БД готова
+```
