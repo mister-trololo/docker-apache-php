@@ -28,21 +28,22 @@ RUN apk add --no-cache \
 		php7-zlib \
 		php7-mysqli \
 		php7-pgsql \
-        # php7-cli \
-        # php7-mysql \
-        php7-gd \
-        php7-ldap \
-        php7-odbc \
-        php7-pdo \
-        php7-pecl-memcache \
-        php7-opcache \
-        php7-pear \
-        php7-xml \
-        php7-xmlrpc \
-        php7-mbstring \
-        php7-snmp \
-        php7-soap \
-        php7-zip
+		# php7-cli \
+		# php7-mysql \
+		php7-pdo_mysql \
+		php7-gd \
+		php7-ldap \
+		php7-odbc \
+		php7-pdo \
+		php7-pecl-memcache \
+		php7-opcache \
+		php7-pear \
+		php7-xml \
+		php7-xmlrpc \
+		php7-mbstring \
+		php7-snmp \
+		php7-soap \
+		php7-zip
 
 # add user www-data
 # group www-data already exists
