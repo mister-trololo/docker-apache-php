@@ -76,4 +76,5 @@ docker run --name php_web_server -d \
 test/php_server:v1
 ```
 
+Смотрим [http://info.test/phpinfo.php](http://info.test/phpinfo.php)
 
