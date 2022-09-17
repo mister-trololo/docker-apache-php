@@ -11,8 +11,8 @@ apache, php, mariaDB - Всё находится в отдельных конт�
 ```
 ├── docker 
 │   ├── apache
-│   │   └── test_dock (конфиг где собрано всё в кучу)
-│   └── php7.4-fpm
+│   ├── php7.4-fpm
+│   └── db
 └── site (конфиги, логи, сам сайт)
     ├── apache_config (конфиги апача)
     ├── log 
@@ -21,8 +21,8 @@ apache, php, mariaDB - Всё находится в отдельных конт�
     ├── php_config (конфиги php)
     ├── www (какталог с сайтами)
     |    └── info.test
-    ├── db_files
-    |   └── maria_db (Файлы БД)
+    └── db_files
+         └── maria_db (Файлы БД)
 ```
 Часть конфигов и докер файлы подёргал [Отсюда](https://github.com/8ctopus/apache-php-fpm-alpine).
 
